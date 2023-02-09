@@ -52,15 +52,19 @@ function decode(expr) {
             count = 0
         }
     }
-    
+    bigArr
     
     bigArr.forEach(letter => {
         let temp = 0
         bigTempArr = []
-       
+        
         
         for (let i = 0; i < letter.length; i++){
-            
+            if (letter[i] === '*'){
+                bigTempArr.push(['*', '*'])
+                
+                break
+            }
             if (letter[i] === '1'){
                 temp++
                 
@@ -81,32 +85,38 @@ function decode(expr) {
                 }
                 
             }
-            console.log(bigTempArr)
+            
         }
-        console.log(bigTempArr)
+        
         enourmousTempArr.push(bigTempArr)
         
     });
-    console.log(enourmousTempArr.length)
+    
     let bigStr = ''
     enourmousTempArr.forEach(elem => {
         let str =''
-        console.log(elem)
+        
         for (let unit of elem){
             unit = unit.join('')
             if (unit === '11'){
                 str += '-'
             }
-            else{
+            else if (unit === '10'){
                 str += '.'
             }
-            console.log(MORSE_TABLE[str])
+            
             
         }
-        bigStr += MORSE_TABLE[str]
         
+        if (elem[0][0] === '*'){
+            bigStr += ' '
+        }
+
+        else {
+            bigStr += MORSE_TABLE[str]
+        }
     })
-    console.log(bigStr);
+    
     
     return bigStr
 }
